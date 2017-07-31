@@ -14,16 +14,17 @@ module Ruboty
               text = ""
               while line = stdout_err.gets
                 elapsed = Time.now - t 
-                text << line
 
-                if elapsed > 1 && line != nil
+                if elapsed > 1
                   message.reply(text)
                   t = Time.now
                   text = ""
                 end
+                text << line
                 Ruboty.logger.debug("msg in aun: #{line}")
               end
               Ruboty.logger.debug("last text aun: #{text}")
+              message.reply(text)
               message.reply("last text: #{text}")# unless text == ""
             
               exit_status = wait_thr.value
