@@ -6,8 +6,6 @@ module Ruboty
       class Aun < Ruboty::Actions::Base
         def call
           handlers.each do |handler|
-            last_text = ""
-            message.reply('before open')
             Open3.popen2e(handler) do |stdin, stdout_err, wait_thr|
               stdin.puts message.body
               stdin.close
@@ -23,9 +21,8 @@ module Ruboty
                   text = ""
                 end
                 text << line
-                last_text = text
               end
-              message.reply(last_text)
+              message.reply(text)
             
               exit_status = wait_thr.value
               unless exit_status.success?
@@ -33,7 +30,6 @@ module Ruboty
               end
             end
             message.reply(last_text)
-            message.reply('after open')
           end
         end
 
