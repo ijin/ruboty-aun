@@ -16,7 +16,7 @@ module Ruboty
                 elapsed = Time.now - t 
 
                 if elapsed > 1
-                  text = text[0..3900] + "... . .  .\n\n(truncated)" if text.size > 3900
+                  text = text[0..3900] + "... . .  .\n\n(`truncated`)\n\n" if text.size > 3900
                   message.reply(text)
                   t = Time.now
                   text = ""
