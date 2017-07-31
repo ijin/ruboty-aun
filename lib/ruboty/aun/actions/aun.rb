@@ -11,7 +11,7 @@ module Ruboty
               stdin.close
 
               while line = stdout_err.gets
-                message.reply(stdout_err)
+                message.reply(line)
               end
             
               exit_status = wait_thr.value
