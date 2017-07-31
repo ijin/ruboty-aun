@@ -6,12 +6,13 @@ module Ruboty
       class Aun < Ruboty::Actions::Base
         def call
           handlers.each do |handler|
+            last_text = ""
             Open3.popen2e(handler) do |stdin, stdout_err, wait_thr|
               stdin.puts message.body
-              #stdin.close
+              stdin.close
 
               t = Time.now
-              text = last_text = ""
+              text = ""
               while line = stdout_err.gets
                 elapsed = Time.now - t 
 
@@ -23,15 +24,14 @@ module Ruboty
                 text << line
                 last_text = text
               end
-              Ruboty.logger.debug("last text aun: #{text}")
               message.reply(last_text)
-              message.reply("last text: #{text}")# unless text == ""
             
               exit_status = wait_thr.value
               unless exit_status.success?
                 message.reply("error, exit: #{exit_status}, message: #{stdout_err.chomp}")
               end
             end
+            message.reply(last_text)
           end
         end
 
