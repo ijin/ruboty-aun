@@ -6,7 +6,10 @@ module Ruboty
       class Aun < Ruboty::Actions::Base
         def call
           handlers.each do |handler|
-            Open3.popen2e(handler) do |message.body, stdout_err, wait_thr|
+            Open3.popen2e(handler) do |stdin, stdout_err, wait_thr|
+              stdin.puts message.body
+              stdin.close
+
               while line = stdout_err.gets
                 message.reply(stdout_err)
               end
