@@ -21,8 +21,9 @@ module Ruboty
                   t = Time.now
                   text = ""
                 end
-
+                Ruboty.logger.debug("msg in aun: #{line}")
               end
+              Ruboty.logger.debug("last text aun: #{text}")
               message.reply(text)# unless text == ""
             
               exit_status = wait_thr.value
