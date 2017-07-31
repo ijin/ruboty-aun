@@ -14,15 +14,15 @@ module Ruboty
               text = ""
               while line = stdout_err.gets
                 elapsed = Time.now - t 
+                text << line
                 if elapsed > 1
                   text << line
                   message.reply(text)
                   t = Time.now
                   text = ""
-                else
-                  text << line
                 end
               end
+              message.reply(text) unless text == ""
             
               exit_status = wait_thr.value
               unless exit_status.success?
