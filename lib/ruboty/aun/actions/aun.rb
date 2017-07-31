@@ -11,13 +11,8 @@ module Ruboty
               stdin.close
 
               t = Time.now
-              text = "init"
+              text = ""
               while line = stdout_err.gets
-                #if text == "init"
-                #  message.reply(line)
-                #  line = ""
-                #end
-
                 elapsed = Time.now - t 
                 text << line
 
