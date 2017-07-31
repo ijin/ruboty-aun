@@ -11,7 +11,7 @@ module Ruboty
               stdin.close
 
               t = Time.now
-              text = ""
+              text = last_text = ""
               while line = stdout_err.gets
                 elapsed = Time.now - t 
 
@@ -21,10 +21,10 @@ module Ruboty
                   text = ""
                 end
                 text << line
-                Ruboty.logger.debug("msg in aun: #{line}")
+                last_text = text
               end
               Ruboty.logger.debug("last text aun: #{text}")
-              message.reply(text)
+              message.reply(last_text)
               message.reply("last text: #{text}")# unless text == ""
             
               exit_status = wait_thr.value
