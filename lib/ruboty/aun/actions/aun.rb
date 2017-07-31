@@ -10,8 +10,18 @@ module Ruboty
               stdin.puts message.body
               stdin.close
 
+              t = Time.now
+              text = ""
               while line = stdout_err.gets
-                message.reply(line)
+                elapsed = Time.now - t 
+                if elapsed > 1
+                  text << line
+                  message.reply(text)
+                  t = Time.now
+                  text = ""
+                else
+                  text << line
+                end
               end
             
               exit_status = wait_thr.value
