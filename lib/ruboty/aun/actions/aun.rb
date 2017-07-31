@@ -23,7 +23,7 @@ module Ruboty
                 end
 
               end
-              message.reply(text) unless text == ""
+              message.reply(text)# unless text == ""
             
               exit_status = wait_thr.value
               unless exit_status.success?
