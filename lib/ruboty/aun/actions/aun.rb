@@ -16,7 +16,7 @@ module Ruboty
                 elapsed = Time.now - t 
                 text << line
 
-                if elapsed > 1
+                if elapsed > 1 && line != nil
                   message.reply(text)
                   t = Time.now
                   text = ""
