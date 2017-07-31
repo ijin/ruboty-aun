@@ -7,6 +7,7 @@ module Ruboty
         def call
           handlers.each do |handler|
             last_text = ""
+            message.reply('before open')
             Open3.popen2e(handler) do |stdin, stdout_err, wait_thr|
               stdin.puts message.body
               stdin.close
@@ -32,6 +33,7 @@ module Ruboty
               end
             end
             message.reply(last_text)
+            message.reply('after open')
           end
         end
 
