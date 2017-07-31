@@ -6,14 +6,15 @@ module Ruboty
       class Aun < Ruboty::Actions::Base
         def call
           handlers.each do |handler|
-            output, error, status = Open3.capture3(handler, stdin_data: message.body)
-
-            unless output.empty?
-              message.reply(output.chomp)
-            end
-
-            unless error.empty? && status.success?
-              message.reply("error, exit: #{status}, message: #{error.chomp}")
+            Open3.popen2e(handler, stdin_data: message.body) do |stdin, stdout_err, wait_thr|
+              while line = stdout_err.gets
+                message.reply(stdout_err)
+              end
+            
+              exit_status = wait_thr.value
+              unless exit_status.success?
+                message.reply("error, exit: #{exit_status}, message: #{stdout_err.chomp}")
+              end
             end
           end
         end
