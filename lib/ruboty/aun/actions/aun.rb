@@ -13,10 +13,10 @@ module Ruboty
               t = Time.now
               text = "init"
               while line = stdout_err.gets
-                if text == "init"
-                  message.reply(line)
-                  line = ""
-                end
+                #if text == "init"
+                #  message.reply(line)
+                #  line = ""
+                #end
 
                 elapsed = Time.now - t 
                 text << line
@@ -26,6 +26,7 @@ module Ruboty
                   t = Time.now
                   text = ""
                 end
+
               end
               message.reply(text) unless text == ""
             
