@@ -8,7 +8,7 @@ module Ruboty
           handlers.each do |handler|
             Open3.popen2e(handler) do |stdin, stdout_err, wait_thr|
               stdin.puts message.body
-              stdin.close
+              #stdin.close
 
               t = Time.now
               text = last_text = ""
