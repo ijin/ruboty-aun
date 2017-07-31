@@ -29,7 +29,6 @@ module Ruboty
                 message.reply("error, exit: #{exit_status}, message: #{stdout_err.chomp}")
               end
             end
-            message.reply(text)
           end
         end
 
