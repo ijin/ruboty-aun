@@ -16,14 +16,13 @@ module Ruboty
                 elapsed = Time.now - t 
 
                 if elapsed > 1
-                  text = text[0..3900] + "... . .  .\n\n(`truncated`)\n\n" if text.size > 3900
-                  message.reply(text)
+                  message.reply(truncate_text(text))
                   t = Time.now
                   text = ""
                 end
                 text << line
               end
-              message.reply(text)
+              message.reply(truncate_text(text)) unless text.nil?
             
               exit_status = wait_thr.value
               unless exit_status.success?
@@ -37,6 +36,10 @@ module Ruboty
 
         def handlers
           Dir['aun/**/*'].select {|handler| File.executable?(handler) }
+        end
+
+        def truncate_text(text)
+          text[0..3900].chomp + "..........(`truncated`)\n" if text.size > 3900
         end
       end
     end
