@@ -39,7 +39,7 @@ module Ruboty
         end
 
         def truncate_text(text)
-          text[0..3900].chomp + "..........(`truncated`)\n" if text.size > 3900
+          text.size > 3900 ? text[0..3900].chomp + "..........(`truncated`)\n" : text
         end
       end
     end

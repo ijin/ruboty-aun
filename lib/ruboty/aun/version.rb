@@ -1,5 +1,5 @@
 module Ruboty
   module Aun
-    VERSION = "1.1.23"
+    VERSION = "1.1.24"
   end
 end
