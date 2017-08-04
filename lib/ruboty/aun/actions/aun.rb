@@ -10,9 +10,19 @@ module Ruboty
               stdin.puts message.body
               stdin.close
 
+              t = Time.now
+              text = ""
               while line = stdout_err.gets
-                message.reply(line)
+                elapsed = Time.now - t 
+
+                if elapsed > 1
+                  message.reply(truncate_text(text))
+                  t = Time.now
+                  text = ""
+                end
+                text << line
               end
+              message.reply(truncate_text(text)) unless text.nil?
             
               exit_status = wait_thr.value
               unless exit_status.success?
@@ -26,6 +36,10 @@ module Ruboty
 
         def handlers
           Dir['aun/**/*'].select {|handler| File.executable?(handler) }
+        end
+
+        def truncate_text(text)
+          text.size > 3900 ? text[0..3900].chomp + "..........(`truncated`)\n" : text
         end
       end
     end
